@@ -18,19 +18,21 @@ namespace Lab6.Controllers
         // GET: Products
         public async Task<ActionResult> Index()
         {
-            if (!Request.IsAjaxRequest())
-            {
+            //if (!Request.IsAjaxRequest())
+            //{
                 var products = db.Products.Include(p => p.Category).Include(p => p.Supplier);
                 ViewBag.Suppliers = await db.Suppliers.ToListAsync();
                 ViewBag.Categories = await db.Categories.ToListAsync();
                 return View(await products.ToListAsync());
-            }
-            else
-            {
-                var products = db.Products.Include(p => p.Category).Include(p => p.Supplier);
-                return Json(await products.ToListAsync());
-            }
+            //}
 
+        }
+        
+        public async Task<ActionResult> ProductSearch()
+        {
+            var query = Request.QueryString.Get("q");
+            var products = db.Products.Include(p => p.Category).Include(p => p.Supplier);
+            return View("_ProductTablePartial",await products.ToListAsync());
         }
 
         // GET: Products/Details/5
