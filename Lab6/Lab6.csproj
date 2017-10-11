@@ -53,6 +53,8 @@
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -192,12 +194,37 @@
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
+    <Compile Include="Controllers\ProductsController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\NorthWind\Category.cs">
+      <DependentUpon>NorthWind.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NorthWind\NorthWind.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NorthWind.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NorthWind\NorthWind.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NorthWind.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NorthWind\NorthWind.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NorthWind.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NorthWind\Product.cs">
+      <DependentUpon>NorthWind.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NorthWind\Supplier.cs">
+      <DependentUpon>NorthWind.tt</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -208,10 +235,27 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\NorthWind\NorthWind.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>NorthWind.edmx</DependentUpon>
+      <LastGenOutput>NorthWind.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\NorthWind\NorthWind.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>NorthWind.edmx</DependentUpon>
+      <LastGenOutput>NorthWind.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="ApplicationInsights.config">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <EntityDeploy Include="Models\NorthWind\NorthWind.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>NorthWind.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\NorthWind\NorthWind.edmx.diagram">
+      <DependentUpon>NorthWind.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
@@ -258,6 +302,11 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
+    <Content Include="Views\Products\Create.cshtml" />
+    <Content Include="Views\Products\Delete.cshtml" />
+    <Content Include="Views\Products\Details.cshtml" />
+    <Content Include="Views\Products\Edit.cshtml" />
+    <Content Include="Views\Products\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -274,6 +323,9 @@
   <ItemGroup>
     <None Include="packages.config" />
     <Content Include="Scripts\jquery-1.10.2.min.map" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
