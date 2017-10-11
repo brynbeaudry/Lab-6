@@ -1,0 +1,32 @@
+﻿@model IEnumerable<Lab6.Models.NorthWind.Product>
+
+@{
+    ViewBag.Title = "Product Page";
+}
+
+<h2>Product Page</h2>
+
+<div class="row">
+    <div class="col-md-12">
+        <h2>Search for products</h2>
+        @Html.DropDownList("Select Supplier", new SelectList(ViewBag.Suppliers, "SupplierID", "CompanyName"), "Select Supplier", new { @class = "form-control", @id = "supplierSelect" })
+        @Html.DropDownList("Select Category", new SelectList(ViewBag.Categories, "CategoryID", "CategoryName"), "Select Category", new { @class = "form-control", @id = "categorySelect" })
+        @using (Ajax.BeginForm("ProductSearch", "Product", new AjaxOptions
+        {
+            InsertionMode = InsertionMode.Replace,
+            HttpMethod = "GET",
+            OnFailure = "searchFailed",
+            LoadingElementId = "ajax-loader",
+            UpdateTargetId = "searchresults",
+        }))
+        {
+            <input type="text" name="q" />
+            <input type="submit" value="search" />
+            <img id="ajax-loader"
+                 src="@Url.Content("~/Content/Images/ajax-loader.gif")"
+                 style="display:none" />
+        }
+        <div id="searchresults"></div>
+    </div>
+</div>
+
