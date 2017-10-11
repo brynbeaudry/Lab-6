@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Lab6.Models.NorthWind;
+using System.Web.WebPages;
 
 namespace Lab6.Controllers
 {
@@ -30,8 +31,31 @@ namespace Lab6.Controllers
         
         public async Task<ActionResult> ProductSearch()
         {
-            var query = Request.QueryString.Get("q");
+            var messageString = "Search : ";
+            var qString = Request.QueryString;
+            var query = qString.Get("q");
+            var supplierId = qString.Get("supplierId");
+            var categoryId = qString.Get("categoryId");
             var products = db.Products.Include(p => p.Category).Include(p => p.Supplier);
+            if (!query.IsEmpty())
+            {
+                products = products.Where(p => p.ProductName.Contains(query));
+                messageString += $"Name Contains: \'{query}\', ";
+            }
+            if (!supplierId.IsEmpty())
+            {
+                var supplier = Int32.Parse(supplierId);
+                products = products.Where(p => p.Supplier.SupplierID == supplier);
+                messageString += $"Supplier : {db.Suppliers.Find(supplier).CompanyName}, ";
+            }
+            if (!categoryId.IsEmpty())
+            {
+                var category = Int32.Parse(categoryId);
+                products = products.Where(p => p.Category.CategoryID== category);
+                messageString += $"Category : {db.Categories.Find(category).CategoryName}";
+            }
+            ViewBag.message = $"{messageString}";
+            //var list = await products.ToListAsync();
             return View("_ProductTablePartial",await products.ToListAsync());
         }
 

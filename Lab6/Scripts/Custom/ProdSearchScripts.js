@@ -4,7 +4,7 @@
 
 
 var loadProducts = function () {
-    var form = $('searchForm')
+    var form = $('#searchForm')
     console.log("Form Action", form.attr("action"));
     console.log("Form Data", form.serialize());
 
@@ -45,6 +45,14 @@ $(function () {
     loadProducts();
 
     $("#queryInput").on('keyup', function (event) {
+        loadProducts()
+    });
+
+    $('#supplierSelect').on('change',function (event) {
+        loadProducts()
+    });
+
+    $('#categorySelect').on('change', function (event) {
         loadProducts()
     });
 
